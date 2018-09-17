@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <!-- 配置指定使用LOG4J输出日志 -->
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+
+    <!-- 配置包的别名，这样我们在mapper中定义时，就不需要使用类的全限定名称，只需要使用类名即可 -->
+    <typeAliases>
+        <package name="mybatis.simple.model"/>
+    </typeAliases>
+
+    <!-- 数据库配置 -->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="xxxxxx"/>
+                <property name="username" value="xxxxxx"/>
+                <property name="password" value="xxxxxx"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+
+
+    <!-- mybatis的SQL语句和映射配置文件 -->
+    <mappers>
+        <mapper resource="TableQueryMapper.xml"/>
+    </mappers>
+</configuration>

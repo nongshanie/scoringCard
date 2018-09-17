@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mybatis.simple.mapper.TableQueryMapper" >
+    <select id="selectListStr" resultType="java.lang.String">
+        select  `column_name` from information_schema.columns
+          where `table_schema` ='sr_loandispatch_dev'  and `table_name` = #{tableName,jdbcType=VARCHAR} ;
+    </select>
+</mapper>
