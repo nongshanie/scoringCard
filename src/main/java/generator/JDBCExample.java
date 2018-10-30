@@ -24,8 +24,7 @@ public class JDBCExample implements Serializable {
                 in.close();
                 Class.forName(prop.getProperty("driverClassName"));
             } catch (Exception e) {
-                e.printStackTrace();
-                System.exit(1);
+                
             }
             Connection conn = DriverManager.getConnection(prop.getProperty("driverUrl"), prop.getProperty("username"), prop.getProperty("password"));
             resultTablesInfo = getResultTablesInfo();
@@ -37,9 +36,7 @@ public class JDBCExample implements Serializable {
                 for (int size = rsmd.getColumnCount(); size > 0; size--) {
                     props.add(rsmd.getColumnName(size));
                 }
-                rs.close();
-                System.out.println("\"========================\" = " + "========================");
-                System.out.println("tableInfo = " + tableInfo);
+               
             }
             stmt.close();
             conn.close();
