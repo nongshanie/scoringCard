@@ -37,7 +37,7 @@ public class TablePropGetTest {
         }*/
         System.out.println("\"结束=============================\" = " + "结束=============================");
 
-        //5. SqlSession提交SQL到数据库并关闭SqlSession
+        
         session.commit();
         session.close();
 
