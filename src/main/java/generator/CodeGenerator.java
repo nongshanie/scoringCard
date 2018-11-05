@@ -3,11 +3,14 @@ package generator;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import generator.bean.ClassInfo;
+import mybatis.simple.model.XrSysDictionary;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 //代码生成器类
@@ -17,8 +20,8 @@ public class CodeGenerator {
     static {
         try {
             cfg = new Configuration();
-            cfg.setDirectoryForTemplateLoading(new File("templates"));
-            //cfg.setDirectoryForTemplateLoading(new File("D:\\opensource\\scoringCard\\src\\main\\java\\generator\\templates"));
+            //cfg.setDirectoryForTemplateLoading(new File("templates"));
+            cfg.setDirectoryForTemplateLoading(new File("D:\\opensource\\scoringCard\\src\\main\\java\\generator\\templates"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -32,8 +35,9 @@ public class CodeGenerator {
     }
 
     private static void generated() throws Exception {
-        ClassInfo classInfo = getResultClassInfo();
-        createFile(classInfo, "JsonResult.ftl", "../scoringCard_jar/JsonResult.sql");
+        Object classInfo = getResultClassInfo();
+        //createFile(classInfo, "JsonResult.ftl", "../scoringCard_jar/JsonResult.sql");
+        createFile(classInfo, "EnumResult.ftl", "../scoringCard_jar/XrSysDictionaryEnum.java");
     }
 
     /**
@@ -41,19 +45,25 @@ public class CodeGenerator {
      *
      * @return 表对象集合
      */
-    private static ClassInfo getResultClassInfo() throws SQLException {
-        return new ClassInfo(JDBCExample.getTableInfoList());
+    private static Object getResultClassInfo() throws SQLException {
+        Map<String, Object> map = new HashMap<>(1);
+        List<XrSysDictionary> tableInfoList = JDBCExample.getTableInfo();
+        for (XrSysDictionary tableInfo : tableInfoList) {
+            System.out.println("tableInfo = " + tableInfo);
+        }
+        map.put("tablesList", tableInfoList);
+        return map;
     }
 
 
     //生成文件
-    private static void createFile(ClassInfo classInfo, String templateFile, String targetFile) throws Exception {
+    private static void createFile(Object object, String templateFile, String targetFile) throws Exception {
         Template template = cfg.getTemplate(templateFile);
         File f = new File(targetFile);
         if (!f.getParentFile().exists()) {
             f.getParentFile().mkdirs();
         }
-        template.process(classInfo, new FileWriter(targetFile));
+        template.process(object, new FileWriter(targetFile));
     }
 
 

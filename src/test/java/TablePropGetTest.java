@@ -1,4 +1,5 @@
-import mybatis.simple.mapper.TableQueryMapper;
+import mybatis.simple.mapper.XrSysDictionaryMapper;
+import mybatis.simple.model.XrSysDictionary;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -9,6 +10,7 @@ import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 
 public class TablePropGetTest {
@@ -27,14 +29,14 @@ public class TablePropGetTest {
         SqlSession session = sqlSessionFactory.openSession();
 
         //3. 利用这个SqlSession获取要使用的mapper接口
-        TableQueryMapper accountMapper = session.getMapper(TableQueryMapper.class);
+        XrSysDictionaryMapper xrSysDictionaryMapper = session.getMapper(XrSysDictionaryMapper.class);
 
         //4. 使用mapper接口和数据库交互，运行mapper.xml文件中的SQL语句
         System.out.println("\"开始=============================\" = " + "开始=============================");
-       /* List<String> listStr = accountMapper.selectListStr();
-        for (String s : listStr) {
-            System.out.println("s = " + s);
-        }*/
+        List<XrSysDictionary> listStr = xrSysDictionaryMapper.selectByPrimaryKey();
+        for (XrSysDictionary s : listStr) {
+            System.out.println("s = " + s.toString());
+        }
         System.out.println("\"结束=============================\" = " + "结束=============================");
 
         //5. SqlSession提交SQL到数据库并关闭SqlSession

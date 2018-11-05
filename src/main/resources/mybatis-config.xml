@@ -21,9 +21,9 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="xxxxxx"/>
-                <property name="username" value="xxxxxx"/>
-                <property name="password" value="xxxxxx"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/test"/>
+                <property name="username" value="root"/>
+                <property name="password" value="admin"/>
             </dataSource>
         </environment>
     </environments>
@@ -32,6 +32,6 @@
 
     <!-- mybatis的SQL语句和映射配置文件 -->
     <mappers>
-        <mapper resource="TableQueryMapper.xml"/>
+        <mapper resource="XrSysDictionaryMapper.xml"/>
     </mappers>
 </configuration>
